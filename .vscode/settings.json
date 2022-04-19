@@ -1,0 +1,11 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.associations": {
+        "list": "cpp",
+        "*.tcc": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "string_view": "cpp",
+        "utility": "cpp"
+    }
+}

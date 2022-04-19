@@ -1,2 +1,2 @@
 all:
-	g++ *.cpp -Wall -o genetico
+	g++ -g *.cpp -Wall -o genetico

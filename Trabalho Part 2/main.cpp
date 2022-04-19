@@ -171,12 +171,14 @@ int main()
 
     incializa(&tempo, vitimas);
 
-    vector<Vitima> solucao = algoritmo_genetico(vitimas, 20, 40, 0.9, 0.03, tempo);
+    vector<Vitima> solucao = algoritmo_genetico(vitimas, 3000, 300, 0.9, 0.05, tempo);
 
     imprime_vitimas(vitimas);
 
-    cout << endl << "Imprimindo solução" << endl;
     
+    cout << endl << "Imprimindo solução" << endl;
+    cout << solucao.size() << " vitimas salvas" << endl;
+
     imprime_vitimas(solucao);
 }
 
@@ -209,13 +211,18 @@ float crossover, float mutacao, int tempo) {
     vector<vector<bool>> individuos = preenche_individuos_iniciais(num_individuos*2, vitimas.size());
     
     pair<double, vector<bool>> melhor;
+    double maior_fitness = 0;
     int i;
     for(i=0; i < iteracoes; i++) {
         vector<double> fitness = fitness_individuos(individuos, vitimas, tempo);
 
         melhor = melhor_individuo(fitness, individuos);
 
-        cout << "fitness melhor individuo = " << melhor.first << endl;
+        //imprime se mudar o maior para não floodar a tela
+        if(melhor.first > maior_fitness) {
+            cout << "fitness melhor individuo geração " << i << " = " << melhor.first << endl;
+            maior_fitness = melhor.first;
+        }
 
         vector<pair<vector<bool>, vector<bool>>> cruzamento = seleciona_individuos(individuos, fitness, num_individuos);
 

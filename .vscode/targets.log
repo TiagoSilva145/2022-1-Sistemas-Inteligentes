@@ -2,13 +2,19 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target 'all'.  Stop.
 
 # GNU Make 4.2.1
+ 
 # Built for x86_64-pc-linux-gnu
+ 
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
+ 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+ 
 # This is free software: you are free to change and redistribute it.
+ 
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Tue Apr 19 20:15:49 2022
+# Make data base, printed on Thu Apr 21 14:07:11 2022
 
 # Variables
 
@@ -39,13 +45,13 @@ GDMSESSION = cinnamon
 # default
 MAKE_VERSION := 4.2.1
 # makefile
-CURDIR := /home/guilherme/Área de Trabalho/Estudo Faculdade/Disciplinas/Sistemas inteligentes/2022-1-Sistemas-Inteligentes
+CURDIR := /home/guilherme/Área de Trabalho/Estudo Faculdade/Disciplinas/Sistemas inteligentes/mochila
 # makefile
 SHELL = /bin/sh
 # environment
 GDM_LANG = pt_BR
 # environment
-VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{"*":"pt-br"},"_languagePackId":"a513330bf1c350c1f1bb229e1d494e4b.pt-br","_translationsConfigFile":"/home/guilherme/.config/Code/clp/a513330bf1c350c1f1bb229e1d494e4b.pt-br/tcf.json","_cacheRoot":"/home/guilherme/.config/Code/clp/a513330bf1c350c1f1bb229e1d494e4b.pt-br","_resolvedLanguagePackCoreLocation":"/home/guilherme/.config/Code/clp/a513330bf1c350c1f1bb229e1d494e4b.pt-br/dfd34e8260c270da74b5c2d86d61aee4b6d56977","_corruptedFile":"/home/guilherme/.config/Code/clp/a513330bf1c350c1f1bb229e1d494e4b.pt-br/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{"*":"pt-br"},"_languagePackId":"44227f601049c951edcdcbe90dfef21e.pt-br","_translationsConfigFile":"/home/guilherme/.config/Code/clp/44227f601049c951edcdcbe90dfef21e.pt-br/tcf.json","_cacheRoot":"/home/guilherme/.config/Code/clp/44227f601049c951edcdcbe90dfef21e.pt-br","_resolvedLanguagePackCoreLocation":"/home/guilherme/.config/Code/clp/44227f601049c951edcdcbe90dfef21e.pt-br/dfd34e8260c270da74b5c2d86d61aee4b6d56977","_corruptedFile":"/home/guilherme/.config/Code/clp/44227f601049c951edcdcbe90dfef21e.pt-br/corrupted.info","_languagePackSupport":true}
 # environment
 _ = /usr/share/code/code
 # environment
@@ -81,7 +87,7 @@ PATH = /home/guilherme/.local/bin:/home/guilherme/anaconda3/bin:/home/guilherme/
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/Robson-Aspire-A515-51:@/tmp/.ICE-unix/1326,unix/Robson-Aspire-A515-51:/tmp/.ICE-unix/1326
+SESSION_MANAGER = local/Robson-Aspire-A515-51:@/tmp/.ICE-unix/1357,unix/Robson-Aspire-A515-51:/tmp/.ICE-unix/1357
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -99,9 +105,9 @@ LS_COLORS =
 # environment
 XDG_SESSION_DESKTOP = cinnamon
 # environment
-SSH_AUTH_SOCK = /tmp/ssh-6VUcXFEBNL8v/agent.1326
+SSH_AUTH_SOCK = /tmp/ssh-zjfvACFBLJS7/agent.1357
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 6031
+GIO_LAUNCHED_DESKTOP_FILE_PID = 30320
 # automatic
 %F = $(notdir $%)
 # environment
@@ -111,7 +117,7 @@ CONDA_EXE = /home/guilherme/anaconda3/bin/conda
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /home/guilherme/Área de Trabalho/Estudo Faculdade/Disciplinas/Sistemas inteligentes/2022-1-Sistemas-Inteligentes
+PWD = /home/guilherme/Área de Trabalho/Estudo Faculdade/Disciplinas/Sistemas inteligentes/mochila
 # environment
 QT_QPA_PLATFORMTHEME = qt5ct
 # default
@@ -119,7 +125,7 @@ QT_QPA_PLATFORMTHEME = qt5ct
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1396
+SSH_AGENT_PID = 1427
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
 # environment
@@ -157,7 +163,7 @@ MAKECMDGOALS := all
 # environment
 SHLVL = 0
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-eb2330f9-5668-44ac-9ba6-4a2e3e5e5f3c.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-0db352cb-d103-4212-935e-38eb959eb9e8.sock
 # environment
 XDG_SESSION_ID = c2
 # environment
@@ -227,10 +233,11 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LANG = C
 # environment
-VSCODE_PID = 6031
+VSCODE_PID = 30320
 # environment
 _CE_CONDA = 
 # variable set hash-table stats:
+ 
 # Load=109/1024=11%, Rehash=0, Collisions=8/131=6%
 
 # Pattern-specific Variable Values
@@ -292,12 +299,11 @@ GNUmakefile:
 # No general ('VPATH' variable) search path.
 
 # strcache buffers: 1 (0) / strings = 14 / storage = 129 B / avg = 9 B
- 
 # current buf: size = 8162 B / used = 129 B / count = 14 / avg = 9 B
 
 # strcache performance: lookups = 17 / hit rate = 17%
 # hash-table stats:
 # Load=14/8192=0%, Rehash=0, Collisions=1/17=6%
-# Finished Make data base on Tue Apr 19 20:15:49 2022
+# Finished Make data base on Thu Apr 21 14:07:11 2022
 
  

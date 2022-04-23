@@ -11,12 +11,46 @@
 
 using namespace std;
 
-void imprime_vitimas(vector<Vitima>& vitimas)
+void imprime_desempenho(vector<Vitima> v, vector<Vitima> s, int t)
+{
+    cout << "----Desempenho----" << endl << endl;
+
+    cout << "Valor acumulado das gravidades das vitimas salvas:\n";
+    float soma = 0;
+    for(int i = 0; i < s.size(); i++)
+        soma += s[i].gravidade;
+    cout << "Gravidade: " << soma << endl << endl;
+
+    cout << "Numero de vitimas salvas pelo tempo gasto:\n";
+    float tempo = 0;
+    for(int i = 0; i < s.size(); i++)
+        tempo += s[i].tempo;
+    cout << "Tempo total: " << t << endl;
+    cout << "Tempo gasto: " << tempo << endl;
+    cout << "Total de vitimas: " << s.size() << endl;
+    cout << "Vitimas por tempo gasto: " << s.size()/tempo << endl << endl;
+
+    cout << "Numero de vítimas salvas em 5 extratos de gravidade pelo tempo gasto:\n";
+    int s1 = 0;
+    for(int i = 0; i < s.size(); i++)
+        s1 += s[i].extrato_gravidade;
+    int s2 = 0;
+    for(int i = 0; i < v.size(); i++)
+        s2 += v[i].extrato_gravidade;
+    cout << "Total de extratos de gravidade de vitimas salvas: " << s1 << endl;
+    cout << "Total de extratos de gravidade: " << s2 << endl;
+    cout << "Extratos de gravidade pelo tempo gasto: " << s1/(tempo * s2) << endl << endl;
+
+
+}
+
+void imprime_vitimas(vector<Vitima> vitimas)
 {
     cout << "Vitimas: " << endl;
     for(long unsigned int i = 0; i < vitimas.size(); i++)
         cout << "Pos: " << vitimas[i].posx << "," << vitimas[i].posy << 
-        " Tempo: " << vitimas[i].tempo << ", Gravidade:" << vitimas[i].gravidade << endl;
+        " Tempo: " << vitimas[i].tempo << ", Gravidade:" << vitimas[i].gravidade << 
+        " Extrato de gravidade: " << vitimas[i].extrato_gravidade << endl;
 }
 
 void incializa(int *tempo, vector<Vitima>& vitimas)
@@ -119,6 +153,20 @@ void incializa(int *tempo, vector<Vitima>& vitimas)
         }
         
         vitimas[x].gravidade = aux;
+
+        int extrato = 0;
+        if(aux < 0.2)
+            extrato = 1;
+        else if(aux < 0.4)
+            extrato = 2;
+        else if(aux < 0.6)
+            extrato = 3;
+        else if(aux < 0.8)
+            extrato = 4;
+        else
+            extrato = 5;
+        vitimas[x].extrato_gravidade = extrato;
+
     }
     arq.close();
 
@@ -161,17 +209,17 @@ void incializa(int *tempo, vector<Vitima>& vitimas)
 }
 
 vector<Vitima> comparar_algoritmos(vector<Vitima> vitimas, int tempo) {
-    Genetico algoritmo1 = Genetico(vitimas, tempo, 1000, 300, 0.9, 0.04);
+    Genetico algoritmo1 = Genetico(vitimas, tempo, 100, 6, 0.9, 0.04);
     algoritmo1.estrategiaCruz = EstrategiaCruzamento::Padrao;
 
-    Genetico algoritmo2 = Genetico(vitimas, tempo, 1000, 300, 0.9, 0.04);
+    Genetico algoritmo2 = Genetico(vitimas, tempo, 100, 6, 0.9, 0.04);
     algoritmo2.estrategiaCruz = EstrategiaCruzamento::Aleatorio;
 
 
     double fitness1=0, fitness2=0, maior1=0, maior2=0;
     int vit1=0, vit2=0;
     vector<Vitima> solucao1, solucao2, melhor1, melhor2;
-    for(int i=0; i < 100; i++) {
+    for(int i=0; i < 2; i++) {
         solucao1 = algoritmo1.algoritmo_genetico();
         solucao2 = algoritmo2.algoritmo_genetico();
 
@@ -228,8 +276,10 @@ int main()
     imprime_vitimas(vitimas);
 
     
-    cout << endl << "Imprimindo solução" << endl;
-    cout << solucao.size() << " vitimas salvas" << endl;
+    // cout << endl << "Imprimindo solução" << endl;
+    // cout << solucao.size() << " vitimas salvas" << endl;
 
-    imprime_vitimas(solucao);
+    // imprime_vitimas(solucao);
+
+    imprime_desempenho(vitimas, solucao, tempo);
 }

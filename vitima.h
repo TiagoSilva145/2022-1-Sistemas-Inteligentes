@@ -7,11 +7,12 @@ class Vitima
     int posy;
     float gravidade;
     float tempo;
+    int extrato_gravidade;
 
     Vitima()
     {
         posx = posy = 0;
-        tempo = gravidade = 0;
+        tempo = gravidade = extrato_gravidade = 0;
     }
     ~Vitima()
     {

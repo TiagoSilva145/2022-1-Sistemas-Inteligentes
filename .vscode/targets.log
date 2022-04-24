@@ -1,20 +1,12 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
- 
 # Built for x86_64-pc-linux-gnu
- 
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
- 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
- 
 # This is free software: you are free to change and redistribute it.
- 
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Thu Apr 21 14:07:11 2022
+# Make data base, printed on Sat Apr 23 23:56:21 2022
 
 # Variables
 
@@ -58,8 +50,8 @@ _ = /usr/share/code/code
 XDG_CONFIG_DIRS = /etc/xdg/xdg-cinnamon:/etc/xdg
 # environment
 GTK_OVERLAY_SCROLLING = 1
-# makefile
-MAKEFILE_LIST := 
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
 # automatic
 @F = $(notdir $@)
 # environment
@@ -87,7 +79,7 @@ PATH = /home/guilherme/.local/bin:/home/guilherme/anaconda3/bin:/home/guilherme/
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/Robson-Aspire-A515-51:@/tmp/.ICE-unix/1357,unix/Robson-Aspire-A515-51:/tmp/.ICE-unix/1357
+SESSION_MANAGER = local/Robson-Aspire-A515-51:@/tmp/.ICE-unix/1378,unix/Robson-Aspire-A515-51:/tmp/.ICE-unix/1378
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -105,9 +97,9 @@ LS_COLORS =
 # environment
 XDG_SESSION_DESKTOP = cinnamon
 # environment
-SSH_AUTH_SOCK = /tmp/ssh-zjfvACFBLJS7/agent.1357
+SSH_AUTH_SOCK = /tmp/ssh-hwovIrrebpbl/agent.1378
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 30320
+GIO_LAUNCHED_DESKTOP_FILE_PID = 7072
 # automatic
 %F = $(notdir $%)
 # environment
@@ -125,7 +117,7 @@ QT_QPA_PLATFORMTHEME = qt5ct
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1427
+SSH_AGENT_PID = 1448
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
 # environment
@@ -163,13 +155,13 @@ MAKECMDGOALS := all
 # environment
 SHLVL = 0
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-0db352cb-d103-4212-935e-38eb959eb9e8.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-1d8593fd-2315-486b-9b34-6dc0f521426a.sock
 # environment
 XDG_SESSION_ID = c2
 # environment
 USER = guilherme
 # makefile
-.DEFAULT_GOAL := 
+.DEFAULT_GOAL := all
 # environment
 XDG_CURRENT_DESKTOP = X-Cinnamon
 # automatic
@@ -233,12 +225,11 @@ GJS_DEBUG_OUTPUT = stderr
 # environment
 LANG = C
 # environment
-VSCODE_PID = 30320
+VSCODE_PID = 7072
 # environment
 _CE_CONDA = 
 # variable set hash-table stats:
- 
-# Load=109/1024=11%, Rehash=0, Collisions=8/131=6%
+# Load=109/1024=11%, Rehash=0, Collisions=8/137=6%
 
 # Pattern-specific Variable Values
 
@@ -246,9 +237,9 @@ _CE_CONDA =
 
 # Directories
 
-# . (device 66306, inode 17039632): 6 files, no impossibilities.
+# . (device 66306, inode 17039632): 18 files, no impossibilities.
 
-# 6 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -256,26 +247,47 @@ _CE_CONDA =
 
 # Files
 
-# Not a target:
 all:
 #  Command line target.
-#  Implicit rule search has been done.
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
 #  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := all
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
+#  recipe to execute (from 'Makefile', line 2):
+	g++ -g *.cpp -Wall -o genetico
+
+# Not a target:
+.SUFFIXES:
+ 
+#  Implicit rule search has not been done.
+#  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  File does not exist.
+#  Last modified 2022-04-23 23:55:45.629988114
 #  File has been updated.
-#  Failed to be updated.
-
-# Not a target:
-makefile:
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Failed to be updated.
+#  Successfully updated.
 
 # Not a target:
 .DEFAULT:
@@ -283,27 +295,20 @@ makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-GNUmakefile:
-#  Implicit rule search has been done.
-#  File does not exist.
-#  File has been updated.
-#  Failed to be updated.
-
 # files hash-table stats:
-# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# Load=4/1024=0%, Rehash=0, Collisions=0/16=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 14 / storage = 129 B / avg = 9 B
-# current buf: size = 8162 B / used = 129 B / count = 14 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 23 / storage = 264 B / avg = 11 B
+# current buf: size = 8162 B / used = 264 B / count = 23 / avg = 11 B
 
-# strcache performance: lookups = 17 / hit rate = 17%
+# strcache performance: lookups = 30 / hit rate = 23%
 # hash-table stats:
-# Load=14/8192=0%, Rehash=0, Collisions=1/17=6%
-# Finished Make data base on Thu Apr 21 14:07:11 2022
+# Load=23/8192=0%, Rehash=0, Collisions=1/30=3%
+# Finished Make data base on Sat Apr 23 23:56:21 2022
 
  

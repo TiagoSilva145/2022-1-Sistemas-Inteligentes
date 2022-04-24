@@ -1,6 +1,5 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory '/home/guilherme/Área de Trabalho/Estudo Faculdade/Disciplinas/Sistemas inteligentes/mochila'
+g++ -g *.cpp -Wall -o genetico
 make: Leaving directory '/home/guilherme/Área de Trabalho/Estudo Faculdade/Disciplinas/Sistemas inteligentes/mochila'
  
-make: *** No targets specified and no makefile found.  Stop.
-

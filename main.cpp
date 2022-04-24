@@ -8,6 +8,7 @@
 
 #include "vitima.h"
 #include "genetico.h"
+#include "tempera.h"
 
 using namespace std;
 
@@ -223,8 +224,9 @@ int main()
 
     incializa(&tempo, vitimas);
     
-    //vector<Vitima> solucao = algoritmo.algoritmo_genetico();
-    vector<Vitima> solucao = comparar_algoritmos(vitimas, tempo);
+    Tempera tempera = Tempera(vitimas, tempo, 100000);
+    vector<Vitima> solucao = tempera.executar();
+    //vector<Vitima> solucao = comparar_algoritmos(vitimas, tempo);
     imprime_vitimas(vitimas);
 
     

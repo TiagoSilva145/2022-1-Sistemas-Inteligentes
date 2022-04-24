@@ -272,7 +272,7 @@ int main()
 
     incializa(&tempo, vitimas);
     
-    Tempera tempera = Tempera(vitimas, tempo, 100000);
+    Tempera tempera = Tempera(vitimas, tempo, 10000);
     vector<Vitima> solucao = tempera.executar();
     //vector<Vitima> solucao = comparar_algoritmos(vitimas, tempo);
     imprime_vitimas(vitimas);

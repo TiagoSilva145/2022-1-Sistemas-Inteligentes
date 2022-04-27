@@ -1,14 +1,14 @@
 #include "genetico.h"
 
 Genetico::Genetico(const vector<Vitima> vit, int tempo, 
-    int iteracoes=300, int num_ind=300, float crossover=0.9, float mutacao=0.04) {
+    int iteracoes=300, int num_ind=300, float crossover=0.9, float mutacao=0.04, EstrategiaCruzamento e = Padrao) {
         this->vitimas = vit;
         this->iteracoes = iteracoes;
         this->num_individuos = num_ind;
         this->crossover = crossover;
         this->mutacao = mutacao;
         this->tempo = tempo;
-        this-> estrategiaCruz = EstrategiaCruzamento::Padrao;
+        this-> estrategiaCruz = e;
 
         if(num_ind < 0) {
             this->num_individuos=300;

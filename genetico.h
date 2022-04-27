@@ -28,7 +28,7 @@ class Genetico {
         double melhor_fitness;
 
     Genetico(const vector<Vitima> vit, int tempo, 
-    int iteracoes, int num_ind, float crossover, float mutacao);
+    int iteracoes, int num_ind, float crossover, float mutacao, EstrategiaCruzamento e);
 
     vector<Vitima> algoritmo_genetico();
 

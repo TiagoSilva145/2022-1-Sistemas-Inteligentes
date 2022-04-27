@@ -26,7 +26,7 @@ vector<Vitima> Tempera::executar() {
         vector<bool> sucessor = escolhe_acao(solucao);
 
         if(fitness_ant > melhor_fitness) {
-            cout << "iteracao " << i << " fitness = " << fitness_ant << endl;
+            //cout << "iteracao " << i << " fitness = " << fitness_ant << endl;
             melhor_solucao = solucao;
             melhor_fitness = fitness_ant;
         }
@@ -91,7 +91,6 @@ vector<bool> Tempera::escolhe_acao(vector<bool> inicial) {
     for(int i=0; i < inicial.size(); i++) {
         resultado.push_back(inicial[i]);
     }
-
 
     int posicao_aleatoria = rand() % inicial.size();
     resultado[posicao_aleatoria] = !resultado[posicao_aleatoria];

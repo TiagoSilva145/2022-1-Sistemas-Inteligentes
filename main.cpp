@@ -14,7 +14,7 @@ using namespace std;
 
 void imprime_desempenho(vector<Vitima> v, vector<Vitima> s, int t)
 {
-    cout << "----Desempenho----" << endl << endl;
+    //cout << "----Desempenho----" << endl << endl;
 
     cout << "Valor acumulado das gravidades das vitimas salvas:\n";
     float soma = 0;
@@ -210,10 +210,10 @@ void incializa(int *tempo, vector<Vitima>& vitimas)
 }
 
 vector<Vitima> comparar_algoritmos(vector<Vitima> vitimas, int tempo) {
-    Genetico algoritmo1 = Genetico(vitimas, tempo, 100, 6, 0.9, 0.04);
+    Genetico algoritmo1 = Genetico(vitimas, tempo, 100, 6, 0.9, 0.04, Padrao);
     algoritmo1.estrategiaCruz = EstrategiaCruzamento::Padrao;
 
-    Genetico algoritmo2 = Genetico(vitimas, tempo, 100, 6, 0.9, 0.04);
+    Genetico algoritmo2 = Genetico(vitimas, tempo, 100, 6, 0.9, 0.04, Aleatorio);
     algoritmo2.estrategiaCruz = EstrategiaCruzamento::Aleatorio;
 
 
@@ -265,23 +265,34 @@ vector<Vitima> comparar_algoritmos(vector<Vitima> vitimas, int tempo) {
 
 int main()
 {
+    srand (time(NULL));
     int tempo = 0;
     vector<Vitima> vitimas;
 
-    srand (time(NULL));
-
     incializa(&tempo, vitimas);
-    
     Tempera tempera = Tempera(vitimas, tempo, 10000);
     vector<Vitima> solucao = tempera.executar();
-    //vector<Vitima> solucao = comparar_algoritmos(vitimas, tempo);
-    imprime_vitimas(vitimas);
+    cout << "----Desempenho Tempera----" << endl << endl;
+    imprime_desempenho(vitimas, solucao, tempo);
 
+    incializa(&tempo, vitimas);
+    Genetico gen = Genetico(vitimas, tempo, 500, vitimas.size()*5, 0.9, 0.04, Padrao);
+    solucao = gen.algoritmo_genetico();
+    cout << "----Desempenho Genético - Cruzamento Simples----" << endl << endl;
+    imprime_desempenho(vitimas, solucao, tempo);
+
+    incializa(&tempo, vitimas);
+    gen = Genetico(vitimas, tempo, 500, vitimas.size()*5, 0.9, 0.04, Aleatorio);
+    solucao = gen.algoritmo_genetico();
+    cout << "----Desempenho Genético - Cruzamento Aleatorio----" << endl << endl;
+    imprime_desempenho(vitimas, solucao, tempo);
+
+    //vector<Vitima> solucao = comparar_algoritmos(vitimas, tempo);
+    //imprime_vitimas(vitimas);
     
     // cout << endl << "Imprimindo solução" << endl;
     // cout << solucao.size() << " vitimas salvas" << endl;
 
     // imprime_vitimas(solucao);
 
-    imprime_desempenho(vitimas, solucao, tempo);
 }

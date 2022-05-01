@@ -271,7 +271,7 @@ int main()
     vector<Vitima> vitimas;
 
     incializa(&tempo, vitimas);
-    Genetico gen = Genetico(vitimas, tempo, 1, 10, 0.9, 0.04, Padrao);
+    Genetico gen = Genetico(vitimas, tempo, 200, 50, 0.9, 0.04, Padrao);
     gen.algoritmo_genetico();
 
     /*

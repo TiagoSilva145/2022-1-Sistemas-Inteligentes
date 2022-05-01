@@ -47,26 +47,10 @@ class Genetico {
 
         void cruzar(int i1, int i2, vector<Individuo>& v_individuos);
 
-        bool comparar(Individuo i1, Individuo i2);
+        vector<Vitima> to_vitima(Individuo melhor);
+
+        //bool comparar(Individuo i1, Individuo i2);
 
         //-----------------
 
-        pair<double, vector<bool>> selecionar_individuo_probabilidade(list<pair<double, vector<bool>>> &ind, double &soma_fit);
-
-        vector<double> fitness_individuos(vector<vector<bool>> individuos);
-
-
-        vector<pair<vector<bool>, vector<bool>>> seleciona_individuos(vector<vector<bool>> indivuduos, 
-        vector<double> fitness);
-
-        vector<vector<bool>> cruza_individuos(vector<pair<vector<bool>, vector<bool>>> cruzamento);
-
-        pair<vector<bool>, vector<bool>> cruzar_padrao(vector<bool> ind1, vector<bool> ind2);
-        pair<vector<bool>, vector<bool>> cruzar_aleatorio(vector<bool> ind1, vector<bool> ind2);
-
-        void mutar_individuo(pair<vector<bool>, vector<bool>> *filhos);
-
-        pair<double, vector<bool>> melhor_individuo(vector<double> fitness, vector<vector<bool>> individuos);
-
-        vector<Vitima> to_vitima(vector<bool> ind);
 };

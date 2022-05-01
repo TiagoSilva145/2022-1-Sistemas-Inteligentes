@@ -4,18 +4,55 @@
 #include <vector>
 #include <list>
 #include <cmath>
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <time.h> 
 
 #include "vitima.h"
+#include "genetico.h"
+#include "tempera.h"
 
 using namespace std;
 
-void imprime_vitimas(vector<Vitima>& vitimas)
+void imprime_desempenho(vector<Vitima> v, vector<Vitima> s, int t)
+{
+    //cout << "----Desempenho----" << endl << endl;
+
+    cout << "Valor acumulado das gravidades das vitimas salvas:\n";
+    float soma = 0;
+    for(int i = 0; i < s.size(); i++)
+        soma += s[i].gravidade;
+    cout << "Gravidade: " << soma << endl << endl;
+
+    cout << "Numero de vitimas salvas pelo tempo gasto:\n";
+    float tempo = 0;
+    for(int i = 0; i < s.size(); i++)
+        tempo += s[i].tempo;
+    cout << "Tempo total: " << t << endl;
+    cout << "Tempo gasto: " << tempo << endl;
+    cout << "Total de vitimas: " << s.size() << endl;
+    cout << "Vitimas por tempo gasto: " << s.size()/tempo << endl << endl;
+
+    cout << "Numero de vítimas salvas em 5 extratos de gravidade pelo tempo gasto:\n";
+    int s1 = 0;
+    for(int i = 0; i < s.size(); i++)
+        s1 += s[i].extrato_gravidade;
+    int s2 = 0;
+    for(int i = 0; i < v.size(); i++)
+        s2 += v[i].extrato_gravidade;
+    cout << "Total de extratos de gravidade de vitimas salvas: " << s1 << endl;
+    cout << "Total de extratos de gravidade: " << s2 << endl;
+    cout << "Extratos de gravidade pelo tempo gasto: " << s1/(tempo * s2) << endl << endl;
+
+
+}
+
+void imprime_vitimas(vector<Vitima> vitimas)
 {
     cout << "Vitimas: " << endl;
     for(long unsigned int i = 0; i < vitimas.size(); i++)
         cout << "Pos: " << vitimas[i].posx << "," << vitimas[i].posy << 
-        " Tempo: " << vitimas[i].tempo << ", Gravidade:" << vitimas[i].gravidade << endl;
+        " Tempo: " << vitimas[i].tempo << ", Gravidade:" << vitimas[i].gravidade << 
+        " Extrato de gravidade: " << vitimas[i].extrato_gravidade << endl;
 }
 
 void incializa(int *tempo, vector<Vitima>& vitimas)
@@ -46,7 +83,7 @@ void incializa(int *tempo, vector<Vitima>& vitimas)
         i++;
     }
     *tempo = aux;
-    cout << "Tempo: " << *tempo << endl;
+    //cout << "Tempo: " << *tempo << endl;
     arq.close();
     
     //-------------Inicializa o vetor de vitimas
@@ -118,6 +155,20 @@ void incializa(int *tempo, vector<Vitima>& vitimas)
         }
         
         vitimas[x].gravidade = aux;
+
+        int extrato = 0;
+        if(aux < 0.2)
+            extrato = 1;
+        else if(aux < 0.4)
+            extrato = 2;
+        else if(aux < 0.6)
+            extrato = 3;
+        else if(aux < 0.8)
+            extrato = 4;
+        else
+            extrato = 5;
+        vitimas[x].extrato_gravidade = extrato;
+
     }
     arq.close();
 
@@ -159,248 +210,94 @@ void incializa(int *tempo, vector<Vitima>& vitimas)
     arq.close();
 }
 
-vector<Vitima> algoritmo_genetico(const vector<Vitima> vitimas, int iteracoes, int num_individuos, 
-float crossover, float mutacao, int tempo);
+vector<Vitima> comparar_algoritmos(vector<Vitima> vitimas, int tempo) {
+    Genetico algoritmo1 = Genetico(vitimas, tempo, 100, 6, 0.9, 0.04, Padrao);
+    algoritmo1.estrategiaCruz = EstrategiaCruzamento::Padrao;
+
+    Genetico algoritmo2 = Genetico(vitimas, tempo, 100, 6, 0.9, 0.04, Aleatorio);
+    algoritmo2.estrategiaCruz = EstrategiaCruzamento::Aleatorio;
+
+
+    double fitness1=0, fitness2=0, maior1=0, maior2=0;
+    int vit1=0, vit2=0;
+    vector<Vitima> solucao1, solucao2, melhor1, melhor2;
+    for(int i=0; i < 2; i++) {
+        solucao1 = algoritmo1.algoritmo_genetico();
+        solucao2 = algoritmo2.algoritmo_genetico();
+
+        fitness1 = algoritmo1.melhor_fitness;
+        fitness2 = algoritmo2.melhor_fitness;
+
+        cout << "Resultado 1, 2 = " << fitness1 << " " << fitness2 << endl;
+        if(fitness1 > fitness2) {
+            cout << "alg 1 ganhou" << endl;
+            vit1++;
+        }
+        else if(fitness1 < fitness2) {
+            cout << "alg 2 ganhou" << endl;
+            vit2++;
+        }
+        else {
+            cout << "empate" << endl;
+        }
+
+        if(fitness1 > maior1) {
+            maior1 = fitness1;
+            melhor1 = solucao1;
+        }
+        if(fitness2 > maior2) {
+            maior2 = fitness2;
+            melhor2 = solucao2;
+        }
+    }
+
+    cout << "vitorias 1: " << vit1 << endl;
+    cout << "vitorias 2: " << vit2 << endl; 
+    cout << "max 1: " << maior1 << endl;
+    cout << "max 2: " << maior2 << endl;
+
+    if(maior1 > maior2) {
+        return melhor1;
+    }
+    else {
+        return melhor2;
+    }
+}
 
 int main()
 {
+    srand (time(NULL));
     int tempo = 0;
     vector<Vitima> vitimas;
 
-    srand (time(NULL));
-
     incializa(&tempo, vitimas);
+    Genetico gen = Genetico(vitimas, tempo, 1, 10, 0.9, 0.04, Padrao);
+    gen.algoritmo_genetico();
 
-    vector<Vitima> solucao = algoritmo_genetico(vitimas, 3000, 300, 0.9, 0.05, tempo);
-
-    imprime_vitimas(vitimas);
-
+    /*
     
-    cout << endl << "Imprimindo solução" << endl;
-    cout << solucao.size() << " vitimas salvas" << endl;
+    Tempera tempera = Tempera(vitimas, tempo, 10000);
+    vector<Vitima> solucao = tempera.executar();
+    cout << "----Desempenho Tempera----" << endl << endl;
+    imprime_desempenho(vitimas, solucao, tempo);
 
-    imprime_vitimas(solucao);
-}
+    Genetico gen = Genetico(vitimas, tempo, 500, vitimas.size()*5, 0.9, 0.04, Padrao);
+    solucao = gen.algoritmo_genetico();
+    cout << "----Desempenho Genético - Cruzamento Simples----" << endl << endl;
+    imprime_desempenho(vitimas, solucao, tempo);
 
-//Algoritmo genérico começa aqui
+    gen = Genetico(vitimas, tempo, 500, vitimas.size()*5, 0.9, 0.04, Aleatorio);
+    solucao = gen.algoritmo_genetico();
+    cout << "----Desempenho Genético - Cruzamento Aleatorio----" << endl << endl;
+    imprime_desempenho(vitimas, solucao, tempo);
+    */
 
-vector<vector<bool>> preenche_individuos_iniciais(int num_individuos, int num_vitimas);
-
-pair<double, vector<bool>> selecionar_individuo_probabilidade(list<pair<double, vector<bool>>> &ind, double &soma_fit);
-
-vector<double> fitness_individuos(vector<vector<bool>> individuos, vector<Vitima> vitimas, int tempo);
-
-double calcula_fitness(vector<bool> individuo, vector<Vitima> vitimas, int tempo);
-
-vector<pair<vector<bool>, vector<bool>>> seleciona_individuos(vector<vector<bool>> indivuduos, 
-vector<double> fitness, int num_individuos);
-
-vector<vector<bool>> cruza_individuos(vector<pair<vector<bool>, vector<bool>>> cruzamento, 
-float crossover, float mutacao);
-
-pair<vector<bool>, vector<bool>> cruzar(vector<bool> ind1, vector<bool> ind2);
-
-void mutar_individuo(pair<vector<bool>, vector<bool>> *filhos, float mutacao);
-
-pair<double, vector<bool>> melhor_individuo(vector<double> fitness, vector<vector<bool>> individuos);
-
-vector<Vitima> to_vitima(vector<bool> ind, vector<Vitima> vitimas);
-
-vector<Vitima> algoritmo_genetico(const vector<Vitima> vitimas, int iteracoes, int num_individuos, 
-float crossover, float mutacao, int tempo) {
-    vector<vector<bool>> individuos = preenche_individuos_iniciais(num_individuos*2, vitimas.size());
+    //vector<Vitima> solucao = comparar_algoritmos(vitimas, tempo);
+    //imprime_vitimas(vitimas);
     
-    pair<double, vector<bool>> melhor;
-    double maior_fitness = 0;
-    int i;
-    for(i=0; i < iteracoes; i++) {
-        vector<double> fitness = fitness_individuos(individuos, vitimas, tempo);
+    // cout << endl << "Imprimindo solução" << endl;
+    // cout << solucao.size() << " vitimas salvas" << endl;
 
-        melhor = melhor_individuo(fitness, individuos);
+    // imprime_vitimas(solucao);
 
-        //imprime se mudar o maior para não floodar a tela
-        if(melhor.first > maior_fitness) {
-            cout << "fitness melhor individuo geração " << i << " = " << melhor.first << endl;
-            maior_fitness = melhor.first;
-        }
-
-        vector<pair<vector<bool>, vector<bool>>> cruzamento = seleciona_individuos(individuos, fitness, num_individuos);
-
-        individuos = cruza_individuos(cruzamento, crossover, mutacao);
-    }
-    
-    return to_vitima(melhor.second, vitimas);
-}
-
-vector<Vitima> to_vitima(vector<bool> ind, vector<Vitima> vitimas) {
-    vector<Vitima> solucao;
-    for(int i=0; i < ind.size(); i++) {
-        if(ind[i]) {
-            solucao.push_back(vitimas[i]);
-        }
-    }
-
-    return solucao;
-}
-
-pair<double, vector<bool>> melhor_individuo(vector<double> fitness, vector<vector<bool>> individuos) {
-    double maior=-1;
-    vector<bool> melhor;
-    for(int i=0; i < individuos.size(); i++) {
-        if(fitness[i] > maior) {
-            maior = fitness[i];
-            melhor = individuos[i];
-        }
-    }
-
-    return pair<double, vector<bool>>(maior, melhor);
-}
-
-//Gera individuos aleatórios
-vector<vector<bool>> preenche_individuos_iniciais(int num_individuos, int num_vitimas) {
-    vector<vector<bool>> individuos;
-    individuos.reserve(num_individuos);
-
-    int i, j;
-    for(i=0; i < num_individuos; i++) {
-        vector<bool> aux;
-        aux.reserve(num_vitimas);
-        for(j=0; j < num_vitimas; j++) {
-            //preenche o vetor aleatoriamente com true ou false
-            bool x = (rand() % 2) == 1 ? true : false;
-            aux.push_back(x);
-        }
-        individuos.push_back(aux);
-    }
-
-    return individuos;
-}
-
-vector<double> fitness_individuos(vector<vector<bool>> individuos, vector<Vitima> vitimas, int tempo) {
-    vector<double> fitness;
-    fitness.reserve(individuos.size());
-
-    int i;
-    for(i=0; i < individuos.size(); i++) {
-        fitness.push_back(calcula_fitness(individuos[i], vitimas, tempo));
-    }
-
-    return fitness;
-}
-
-//fitness valoriza maximizar o número de vítimas e o número da gravidade 
-//desvaloriza muito se passou do limite de tempo
-double calcula_fitness(vector<bool> individuo, vector<Vitima> vitimas, int tempo) {
-    double fitness = 0.1;
-    for(int i = 0; i < individuo.size(); i++) {
-        if(individuo[i]) {
-            fitness += 1 + vitimas[i].gravidade;
-            tempo -= vitimas[i].tempo;
-        }
-    }
-    if(tempo < 0) {
-        fitness = fitness / 20;
-    }
-
-    return fitness;
-}
-
-vector<pair<vector<bool>, vector<bool>>> seleciona_individuos(vector<vector<bool>> indivuduos, 
-vector<double> fitness, int num_individuos) {
-    vector<pair<vector<bool>, vector<bool>>> cruzamento;
-    cruzamento.reserve((int)(indivuduos.size()/2));
-    
-    //soma todos os fitness para fazer as probabilidades
-    double soma_fit=0;
-    for(int i=0; i < fitness.size(); i++) {
-        soma_fit += fitness[i];
-    }
-
-    //converte vetor em uma lista
-    list<pair<double, vector<bool>>> ind;
-    for(int i=0; i < indivuduos.size(); i++) {
-        ind.push_back(pair<double, vector<bool>>(fitness[i], indivuduos[i]));
-    }
-
-    pair<double, vector<bool>> selecionado1, selecionado2;
-    for(int i=0; i < (int)num_individuos/2; i++) {
-        
-        selecionado1 = selecionar_individuo_probabilidade(ind, soma_fit);
-        selecionado2 = selecionar_individuo_probabilidade(ind, soma_fit);
-
-        cruzamento.push_back(pair<vector<bool>, vector<bool>>(selecionado1.second, selecionado2.second));
-    }
-
-    return cruzamento;
-}
-
-pair<double, vector<bool>> selecionar_individuo_probabilidade(list<pair<double, vector<bool>>> &ind, double &soma_fit) {
-    //Seleciona um individuo pela probabilidade
-    int random = rand() % 10001;
-    int interv_inicial=0, interv_final=0;
-    list<pair<double, vector<bool>>>::iterator iter;
-    pair<double, vector<bool>> selecionado = (*ind.begin());
-
-    for(iter=ind.begin(); iter != ind.end(); ++iter) {
-        
-        interv_final = ceil(((iter->first / soma_fit) * 10000)) + interv_inicial;
-
-        if((random >= interv_inicial && random < interv_final) || (random > 10000)) {
-            selecionado = *iter;
-            ind.erase(iter);
-            soma_fit -= iter->first;
-            break;
-        }
-        interv_inicial = interv_final;
-    }
-
-    return selecionado;
-}
-
-vector<vector<bool>> cruza_individuos(vector<pair<vector<bool>, vector<bool>>> cruzamento, 
-float crossover, float mutacao) {
-    vector<vector<bool>> individuos;
-
-    for(int i=0; i < cruzamento.size(); i++) {
-        individuos.push_back(cruzamento[i].first);
-        individuos.push_back(cruzamento[i].second);
-
-        //Testa se individuos vao cruzar
-        if((rand() % 100) > ceil(crossover * 100)) {
-            pair<vector<bool>, vector<bool>> filhos = cruzar(cruzamento[i].first, cruzamento[i].second);
-            mutar_individuo(&filhos, mutacao);
-            individuos.push_back(filhos.first);
-            individuos.push_back(filhos.second);
-        }
-    }
-
-    return individuos;
-}
-//cruza dois individuos gerando dois filhos
-pair<vector<bool>, vector<bool>> cruzar(vector<bool> ind1, vector<bool> ind2) {
-    int pivo = rand() % ind1.size();
-    pair<vector<bool>, vector<bool>> filhos;
-    for(int i=0; i < ind1.size(); i++) {
-      if(i < pivo) {
-          filhos.first.push_back(ind1[i]);
-          filhos.second.push_back(ind2[i]);
-      }
-      else {
-          filhos.first.push_back(ind2[i]);
-          filhos.second.push_back(ind1[i]);
-      }  
-    };
-
-    return filhos;
-}
-//Testa para cada gene se vai ter mutação
-void mutar_individuo(pair<vector<bool>, vector<bool>> *filhos, float mutacao) {
-    for(int i=0; i < filhos->first.size(); i++) {
-        if((rand() % 100) > ceil(mutacao * 100)) {
-            filhos->first[i] = !(filhos->first[i]);
-        }
-        if((rand() % 100) > ceil(mutacao * 100)) {
-            filhos->second[i] = !(filhos->second[i]);
-        }
-    }
 }

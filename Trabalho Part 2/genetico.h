@@ -43,7 +43,7 @@ class Genetico {
 
         void cruzamento(vector<Individuo>& geracao);
 
-        int seleciona_individuo(vector<Individuo> geracao, int tam);
+        int seleciona_individuo(vector<Individuo> geracao, int tam, double total_fit);
 
         void cruzar(int i1, int i2, vector<Individuo>& v_individuos);
 

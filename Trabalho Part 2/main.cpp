@@ -271,26 +271,25 @@ int main()
     vector<Vitima> vitimas;
 
     incializa(&tempo, vitimas);
-    Genetico gen = Genetico(vitimas, tempo, 200, 50, 0.9, 0.04, Padrao);
-    gen.algoritmo_genetico();
-
-    /*
+    // Genetico gen = Genetico(vitimas, tempo, 200, 50, 0.9, 0.04, Padrao);
+    // vector<Vitima> solucao = gen.algoritmo_genetico();
+    // imprime_desempenho(vitimas, solucao, tempo);
     
     Tempera tempera = Tempera(vitimas, tempo, 10000);
     vector<Vitima> solucao = tempera.executar();
     cout << "----Desempenho Tempera----" << endl << endl;
     imprime_desempenho(vitimas, solucao, tempo);
 
-    Genetico gen = Genetico(vitimas, tempo, 500, vitimas.size()*5, 0.9, 0.04, Padrao);
+    Genetico gen = Genetico(vitimas, tempo, 200, vitimas.size()*5, 0.9, 0.04, Padrao);
     solucao = gen.algoritmo_genetico();
     cout << "----Desempenho Genético - Cruzamento Simples----" << endl << endl;
     imprime_desempenho(vitimas, solucao, tempo);
 
-    gen = Genetico(vitimas, tempo, 500, vitimas.size()*5, 0.9, 0.04, Aleatorio);
+    gen = Genetico(vitimas, tempo, 200, vitimas.size()*5, 0.9, 0.04, Aleatorio);
     solucao = gen.algoritmo_genetico();
     cout << "----Desempenho Genético - Cruzamento Aleatorio----" << endl << endl;
     imprime_desempenho(vitimas, solucao, tempo);
-    */
+    
 
     //vector<Vitima> solucao = comparar_algoritmos(vitimas, tempo);
     //imprime_vitimas(vitimas);

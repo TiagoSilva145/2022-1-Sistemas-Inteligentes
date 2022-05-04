@@ -37,17 +37,20 @@ vector<Vitima> Genetico::algoritmo_genetico()
     //Para cada geracao
     for (int i = 0; i < iteracoes; i++)
     {
-        cout << "Iteracao: " << i << endl;
+        
         //Tam = tamanho do vetor
         int tam = v_individuos.size();
+        double total_fit = 0;
+        for (int i = 0; i < tam; i++)
+            total_fit += v_individuos[i].fit;
         //Para tam / 2 cruzamentos
         for (int i = 0; i < tam / 2; i++)
         {
             // Seleciona os dois individuos que vao cruzar
-            int i1 = seleciona_individuo(v_individuos, tam);
-            int i2 = seleciona_individuo(v_individuos, tam);
+            int i1 = seleciona_individuo(v_individuos, tam, total_fit);
+            int i2 = seleciona_individuo(v_individuos, tam, total_fit);
             while(i1 == i2)
-                i2 = seleciona_individuo(v_individuos, tam);
+                i2 = seleciona_individuo(v_individuos, tam, total_fit);
 
             //Faz o cruzamento de ambos e coloca no vetor
             cruzar(i1, i2, v_individuos);
@@ -55,23 +58,23 @@ vector<Vitima> Genetico::algoritmo_genetico()
 
         //Ordena o vetor em ordem decrescente de fitnees
         sort(v_individuos.begin(), v_individuos.end(), comparar);
-
+        cout << "Iteracao: " << i << "melhor: " << v_individuos[0].fit - 0.1 << endl;
         //Apaga todas as posicos maiores que tam no vetor
         v_individuos.erase(v_individuos.begin()+tam,v_individuos.end());
-        cout << "Individuos:" << endl;
-        for (int i = 0; i < v_individuos.size()/2; i++)
-        {
-            cout << "i" << i << ": ";
-            for (int j = 0; j < v_individuos[i].vitimas.size(); j++)
-            {
-                if (v_individuos[i].vitimas[j])
-                    cout << "1 ";
-                else
-                    cout << "0 ";
-            }
-            cout << "F: " << v_individuos[i].fit;
-            cout << endl;
-        }
+        // cout << "Individuos:" << endl;
+        // for (int i = 0; i < v_individuos.size()/2; i++)
+        // {
+        //     cout << "i" << i << ": ";
+        //     for (int j = 0; j < v_individuos[i].vitimas.size(); j++)
+        //     {
+        //         if (v_individuos[i].vitimas[j])
+        //             cout << "1 ";
+        //         else
+        //             cout << "0 ";
+        //     }
+        //     cout << "F: " << v_individuos[i].fit;
+        //     cout << endl;
+        // }
     }
 
     return to_vitima(v_individuos[0]);
@@ -128,12 +131,8 @@ double Genetico::calcula_fitness(Individuo individuo)
     return fitness;
 }
 
-int Genetico::seleciona_individuo(vector<Individuo> geracao, int tam)
+int Genetico::seleciona_individuo(vector<Individuo> geracao, int tam, double total_fit)
 {
-    double total_fit = 0;
-    for (int i = 0; i < tam; i++)
-        total_fit += geracao[i].fit;
-
     float selecionado = (float)(rand() % 100) / 100 * total_fit;
 
     double limite = 0;
